@@ -49,3 +49,10 @@ class Family:
                 if not (s1 | s2) in s:
                     return False
         return True
+    def __add__(self,x):
+        if type(x)==int:
+            return Family({to_set(i) for i in to_integer_list(self.n)} | {to_set(x)})
+        elif type(x) == frozenset:
+            return Family({to_set(i) for i in to_integer_list(self.n)} | {x})
+        else:
+            raise TypeError('Family can not be constructed from type ' + str(type(x)))
