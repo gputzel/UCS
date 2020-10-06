@@ -1,3 +1,5 @@
+from fractions import Fraction
+
 def to_set(n):
     """Helper function for turning numbers into sets"""
     l=[]
@@ -56,3 +58,16 @@ class Family:
             return Family({to_set(i) for i in to_integer_list(self.n)} | {x})
         else:
             raise TypeError('Family can not be constructed from type ' + str(type(x)))
+    def prevalences(self):
+        u = set()
+        fam = {to_set(i) for i in to_integer_list(self.n)}
+        l=len(fam)
+        for s in fam:
+            u = u | set(s)
+        d = {i:0 for i in u}
+        for s in fam:
+            for i in s:
+                d[i] += 1
+        #return {i:round(d[i]/l,3) for i in d.keys()}
+        print(d[i],',',l)
+        return {i:Fraction(d[i],l) for i in d.keys()}
