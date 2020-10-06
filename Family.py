@@ -17,10 +17,19 @@ def from_set(s):
 def to_integer_list(n):
     return [i-1 for i in to_set(n)]
 
+def from_family(f):
+    return sum([2**from_set(s) for s in f])
+
 class Family:
     n = 0 #Integer representation of the family of sets
-    def __init__(self,n=0):
-        self.n = n
+    def __init__(self,x):
+        if type(x)==int:
+            self.n = x
+        else:
+            if type(x) == set:
+                self.n = from_family(x)
+            else:
+                raise TypeError('Family can not be constructed from type ' + str(type(x)))
     def to_integer_list(self):
         n = self.n
         return [i-1 for i in to_set(n)]
@@ -28,7 +37,7 @@ class Family:
         s = {to_set(i-1) for i in to_set(self.n)}
         return '{' + ','.join([str(set(ss)) if len(ss) > 0 else '{}' for ss in s]) + '}'
     def __repr__(self):
-        return "Family(n=" + str(self.n) + ")"
+        return 'Family(' + str({to_set(i) for i in to_integer_list(self.n)}) + ')'
     def is_union_closed(self):
         n = self.n
         l = to_integer_list(n)
