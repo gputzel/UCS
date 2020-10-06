@@ -29,7 +29,7 @@ class Family:
         return '{' + ','.join([str(set(ss)) if len(ss) > 0 else '{}' for ss in s]) + '}'
     def __repr__(self):
         return "Family(n=" + str(self.n) + ")"
-    def is_union_closed_integer_set(self):
+    def is_union_closed(self):
         n = self.n
         l = to_integer_list(n)
         s = set(l)
